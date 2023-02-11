@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
+
 
 class GuitarTuningPage extends StatefulWidget {
   @override
@@ -7,17 +10,23 @@ class GuitarTuningPage extends StatefulWidget {
 
 class _GuitarTuningPageState extends State<GuitarTuningPage> {
   int selected = 0; // zero as none of them selected
+  final player = AssetsAudioPlayer();
 
   @override
   void initState() {
     super.initState();
     selected = 0;
   }
-
+  //lists of the file paths of the sound files...
+ List <String> stringSounds=["assets/sounds/E4_330.wav","assets/sounds/B_247.wav","assets/sounds/G_196.wav","assets/sounds/D_147.wav","assets/sounds/A_110.wav","assets/sounds/E2_82.wav"];
   onSelected(int stringNumber) {
     setState(() {
-      selected = stringNumber;
-    });
+      selected = stringNumber;   
+      player.open(Audio(stringSounds[stringNumber-1]),
+         autoStart: true,
+        showNotification: true,);
+    }
+    );
     print("Selected String: " + selected.toString());
   }
 
@@ -122,7 +131,7 @@ class StringButton extends StatefulWidget {
   State<StringButton> createState() => _StringButtonState();
 }
 
-class _StringButtonState extends State<StringButton> {
+class _StringButtonState extends State<StringButton> {  
   late bool isSelected;
   List<String> strings = ["ELow", "B", "G", "D", "A", "EHigh"];
 
@@ -146,7 +155,7 @@ class _StringButtonState extends State<StringButton> {
       ),
       child: ElevatedButton(
         onPressed: () {
-          widget.onSelected(strings.indexOf(widget.stringName) + 1);
+          widget.onSelected(strings.indexOf(widget.stringName) + 1);          
         },
         style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
