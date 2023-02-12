@@ -158,8 +158,7 @@ class _StringButtonState extends State<StringButton> {
             foregroundColor: Colors.white,
             backgroundColor:
                 widget.isSelected ? Colors.blue.shade400 : Colors.grey.shade700,
-              enableFeedback: false,  
-
+              enableFeedback: false,              
             shape: CircleBorder(
                 side: BorderSide(color: Colors.grey.shade800, width: 2))),
         child: Text(widget.stringName[0]),
