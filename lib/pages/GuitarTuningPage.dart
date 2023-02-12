@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 class GuitarTuningPage extends StatefulWidget {
   @override
@@ -7,16 +8,21 @@ class GuitarTuningPage extends StatefulWidget {
 
 class _GuitarTuningPageState extends State<GuitarTuningPage> {
   int selected = 0; // zero as none of them selected
-
+  final player = AssetsAudioPlayer();
   @override
   void initState() {
     super.initState();
     selected = 0;
   }
-
+  List <String> stringSounds=["assets/images/E4_330.wav","assets/images/B_247.wav","assets/images/G_196.wav","assets/images/D_147.wav","assets/images/A_110.wav","assets/images/E2_82.wav"];
+  
   onSelected(int stringNumber) {
     setState(() {
       selected = stringNumber;
+      player.open(Audio(stringSounds[stringNumber-1],
+
+      ),
+      autoStart: true,);
     });
     print("Selected String: " + selected.toString());
   }
@@ -152,6 +158,8 @@ class _StringButtonState extends State<StringButton> {
             foregroundColor: Colors.white,
             backgroundColor:
                 widget.isSelected ? Colors.blue.shade400 : Colors.grey.shade700,
+              enableFeedback: false,  
+
             shape: CircleBorder(
                 side: BorderSide(color: Colors.grey.shade800, width: 2))),
         child: Text(widget.stringName[0]),
